@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto">
+
+    <EditText
+        android:id="@+id/etCheckText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@null"
+        android:fontFamily="@font/rubik"
+        android:gravity="top"
+        android:hint="Matnni kiriting..."
+        android:padding="12dp"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@color/gray"
+        app:layout_constraintBottom_toTopOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="12dp"
+        android:background="@color/gray"
+        app:layout_constraintBottom_toTopOf="@+id/btnClear"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/segmentedGroup"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tvCounter"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:background="@drawable/bc_rectangle_up"
+            android:fontFamily="@font/rubik"
+            android:gravity="center"
+            android:text="100"
+            android:textColor="@color/darkGray" />
+
+        <TextView
+            android:id="@+id/tvCounterLimit"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:background="@drawable/bc_rectangle_down"
+            android:fontFamily="@font/rubik"
+            android:gravity="center"
+            android:text="5000"
+            android:textColor="@color/gray" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/btnClear"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/bc_rounded"
+        android:padding="10dp"
+        android:src="@drawable/ic_close"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout" />
+
+    <ImageView
+        android:id="@+id/imgCleared"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_cleared"
+        android:layout_marginBottom="4dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/btnClear"
+        app:layout_constraintStart_toStartOf="@+id/btnClear" />
+
+    <ImageView
+        android:id="@+id/btnCopy"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/bc_rounded"
+        android:padding="10dp"
+        android:src="@drawable/ic_copy"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCheck"
+        app:layout_constraintEnd_toStartOf="@+id/tvCheck"
+        app:layout_constraintTop_toTopOf="@+id/tvCheck" />
+
+    <ImageView
+        android:id="@+id/imgCopied"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_copied"
+        android:layout_marginEnd="4dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/btnCopy"
+        app:layout_constraintEnd_toStartOf="@+id/btnCopy"
+        app:layout_constraintTop_toTopOf="@+id/btnCopy" />
+
+    <TextView
+        android:id="@+id/tvCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/bc_rounded"
+        android:backgroundTint="@color/green"
+        android:padding="10dp"
+        android:text="Tekshirish"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/segmentedGroup"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/anmLoading"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:clickable="false"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCheck"
+        app:layout_constraintEnd_toEndOf="@+id/tvCheck"
+        app:layout_constraintStart_toStartOf="@+id/tvCheck"
+        app:layout_constraintTop_toTopOf="@+id/tvCheck"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading" />
+
+    <ImageView
+        android:id="@+id/imgResultError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_result_error"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/tvCheck"
+        app:layout_constraintEnd_toEndOf="@+id/tvCheck" />
+
+    <TextView
+        android:id="@+id/tvErrorCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3"
+        android:textColor="@color/errorColor"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/imgResultError"
+        app:layout_constraintEnd_toEndOf="@+id/imgResultError"
+        app:layout_constraintHorizontal_bias="0.554"
+        app:layout_constraintStart_toStartOf="@+id/imgResultError"
+        app:layout_constraintTop_toTopOf="@+id/imgResultError"
+        app:layout_constraintVertical_bias="0.181" />
+
+    <ImageView
+        android:id="@+id/imgResultSuccess"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:src="@drawable/ic_result_success"
+        app:layout_constraintBottom_toTopOf="@+id/tvCheck"
+        app:layout_constraintEnd_toEndOf="@+id/tvCheck" />
+
+    <info.hoang8f.android.segmented.SegmentedGroup
+        android:id="@+id/segmentedGroup"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="12dp"
+        android:background="@color/white"
+        android:fontFamily="@font/rubik"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:sc_checked_text_color="@color/colorPrimary"
+        segmentedgroup:sc_border_width="1dp"
+        segmentedgroup:sc_corner_radius="10dp"
+        segmentedgroup:sc_tint_color="@color/colorAccent">
+
+        <RadioButton
+            android:id="@+id/btnLotin"
+            style="@style/RadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="Lotin"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
+
+        <RadioButton
+            android:id="@+id/btnKiril"
+            style="@style/RadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Kiril"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
+    </info.hoang8f.android.segmented.SegmentedGroup>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_change"
+        app:layout_constraintBottom_toBottomOf="@+id/segmentedGroup"
+        app:layout_constraintEnd_toEndOf="@+id/segmentedGroup"
+        app:layout_constraintStart_toStartOf="@+id/segmentedGroup"
+        app:layout_constraintTop_toTopOf="@+id/segmentedGroup" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
