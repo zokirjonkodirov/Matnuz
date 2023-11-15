@@ -3,29 +3,20 @@ package com.intentsoft.matnuz.ui.fragments
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.transition.TransitionManager
-import com.intentsoft.matnuz.MatnApp
 import com.intentsoft.matnuz.R
 import com.intentsoft.matnuz.databinding.FragmentEditBinding
 import com.intentsoft.matnuz.models.Resource
 import com.intentsoft.matnuz.models.Transliteration
 import com.intentsoft.matnuz.ui.viewmodels.MatnViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.internal.Contexts
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -91,6 +82,7 @@ class EditFragment : Fragment() {
                     transiletaration = "latin"
                     matnViewModel.changeToLatin(Transliteration(binding.etCheckText.text.toString()))
                 }
+
                 else -> {
                     transiletaration = "cyrillic"
                     matnViewModel.changeToCyrillic(Transliteration(binding.etCheckText.text.toString()))
@@ -98,36 +90,40 @@ class EditFragment : Fragment() {
             }
         }
 
-        matnViewModel.latin.observe(viewLifecycleOwner, { response ->
+        matnViewModel.latin.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
                     binding.etCheckText.setText(response.data)
                 }
+
                 is Resource.Error -> {
                     binding.etCheckText.setText(response.message)
                 }
             }
-        })
+        }
 
-        matnViewModel.cyrillic.observe(viewLifecycleOwner, { response ->
+        matnViewModel.cyrillic.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
                     binding.etCheckText.setText(response.data)
                 }
+
                 is Resource.Error -> {
                     binding.etCheckText.setText(response.message)
                 }
+
                 else -> {
                     binding.etCheckText.setText("Kutilmagan xatolik")
                 }
             }
-        })
+        }
 
-        matnViewModel.correctData.observe(viewLifecycleOwner, { response ->
+        matnViewModel.correctData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
                     showProgress()
                 }
+
                 is Resource.Success -> {
                     hideProgress()
                     if (response.data?.errors == false) {
@@ -138,11 +134,12 @@ class EditFragment : Fragment() {
                             response.data?.data?.size.toString() + "ta xato"
                     }
                 }
+
                 is Resource.Error -> {
                     showError()
                 }
             }
-        })
+        }
     }
 
     private fun notEmpty(): Boolean {
@@ -179,10 +176,10 @@ class EditFragment : Fragment() {
         binding.imgResultSuccess.visibility = View.GONE
     }
 
-    fun Context.copyToClipboard(text: String) {
+    private fun Context.copyToClipboard(text: String) {
         val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip =
-            ClipData.newPlainText("label",text)
+            ClipData.newPlainText("label", text)
         clipboard.setPrimaryClip(clip)
     }
 }

@@ -1,19 +1,14 @@
 package com.intentsoft.matnuz.ui.viewmodels
 
-import android.app.Application
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.ConnectivityManager.*
-import android.net.NetworkCapabilities.*
-import android.os.Build
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.intentsoft.matnuz.MatnApp
-import com.intentsoft.matnuz.models.*
+import com.intentsoft.matnuz.models.CorrectData
+import com.intentsoft.matnuz.models.DictionaryItem
+import com.intentsoft.matnuz.models.Resource
+import com.intentsoft.matnuz.models.Text
+import com.intentsoft.matnuz.models.Transliteration
 import com.intentsoft.matnuz.repositories.MatnRepository
-import dagger.hilt.android.internal.Contexts.getApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -81,5 +76,4 @@ class MatnViewModel @Inject constructor(
         val list: List<String> = listOf(*text.split(" ").toTypedArray())
         return Text(list, output)
     }
-
 }

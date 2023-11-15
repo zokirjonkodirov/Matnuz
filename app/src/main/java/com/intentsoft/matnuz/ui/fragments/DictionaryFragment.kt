@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.intentsoft.matnuz.adapters.DictionaryAdapter
 import com.intentsoft.matnuz.databinding.FragmentDictionaryBinding
-import com.intentsoft.matnuz.databinding.FragmentEditBinding
 import com.intentsoft.matnuz.models.Resource
 import com.intentsoft.matnuz.ui.viewmodels.MatnViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,21 +41,23 @@ class DictionaryFragment : Fragment() {
 
         binding.edSearch.addTextChangedListener { editable ->
             editable?.let {
-                if(editable.toString().isNotEmpty()) {
+                if (editable.toString().isNotEmpty()) {
                     matnViewModel.getDictionary(editable.toString())
                 }
             }
         }
 
-        matnViewModel.dictionaryList.observe(viewLifecycleOwner, { response ->
+        matnViewModel.dictionaryList.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
                     response.data?.let { dictionaryResponse ->
                         dictionaryAdapter.differ.submitList(dictionaryResponse)
                     }
                 }
+
+                else -> {}
             }
-        })
+        }
     }
 
     private fun setupRecyclerView() {
